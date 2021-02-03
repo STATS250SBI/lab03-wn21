@@ -1,0 +1,301 @@
+---
+title: "STATS 250 Lab 3"
+author: "Lab Dream Team"
+date: "Week of 2/8/2021"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    theme: lumen
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Learning Objectives
+
+## Statistical Learning Objectives
+
+1.  Practice interpreting histograms and boxplots
+2.  Revisit the five-number summary of a variable
+
+## R Learning Objectives
+
+1.  Learn how to subset data in R
+
+## Functions covered in this lab
+
+1.  `subset()`
+2.  `[]`
+3.  `boxplot()`
+4.  `hist()`
+
+## Weekly Advice
+
+Lab 1 and Lab 2 are quickly and easily available to you. Our knowledge will continue to grow each week. Reviewing the prior weeks' R functions prior to working on the next lab might be useful.
+
+<hr />
+
+# Lab Tutorial
+
+We're back to hanging out with our penguin friends.
+
+## `stringsAsFactors`
+
+```{r penguins}
+penguins <- read.csv("penguins.csv", stringsAsFactors = TRUE)
+```
+
+Throughout the labs so far, we've been including the `stringsAsFactors` argument to `read.csv()` without telling you what it does. No longer!
+
+A `factor` is R-speak for a categorical variable. Typically, categorical variables have levels that are expressed in "strings" (read: text). For example, a penguin's species might be "Adelie", "Chinstrap", or "Gentoo". Sometimes data scientists are interested in data that *is* text (e.g., product reviews on an e-commerce website), but in STATS 250, data stored as text will almost always be a categorical variable.
+
+`stringsAsFactors` lets you decide how R will interpret the text data in the .csv file you're reading in. If all the text data is actually levels of a categorical variable, setting `stringsAsFactors = TRUE` will convert that text to `factor`s. If R knows that a variable is a `factor`, it becomes easier to work with as a categorical variable.
+
+**Long story short:** In STATS 250, always include `stringsAsFactors = TRUE` in `read.csv()` unless explicitly told not to.
+
+## Creating a Subset
+
+Sometimes we want to only look at a certain section of our data. To do this, we'll create a *subset*.
+
+```{r chinstrapSubset}
+chinstrap <- subset(penguins, species == "Chinstrap")
+```
+
+The first argument of the `subset()` function is the data you want to create a subset of. The next argument is a "logical expression" telling R what you want to include in the subset. Here, we want to include only chinstrap penguins, so we say `species == "Chinstrap"`. It's *very* important that you type two equals signs here.
+
+**What's with the double equals??** The double equals `==` is called "logical equals": it tells R that you're asking a TRUE/FALSE question, basically. So `species == "Chinstrap"` will be `TRUE` when an observation's `species` variable is equal to "`Chinstrap`" and `FALSE` otherwise. A single equals `=` won't work here: you'll end up assigning the text "Chinstrap" the name `species`.
+
+```{r headChinstrap}
+head(chinstrap)
+```
+
+Fill in the chunk below to create subsets for the other species of penguin.
+
+```{r speciesSubsets, error = T}
+adelie <- subset(penguins, species == "")
+gentoo <- subset(penguins, species == "")
+```
+
+### An alternative subset method
+
+We can also create a subset using square brackets:
+
+```{r bracketSubset}
+chinstrap2 <- penguins[penguins$species == "Chinstrap", ]
+```
+
+This code selects all the *rows* in `penguins` where `species` is "Chinstrap" and all the columns in the data. Remember that data is **R**eally **C**ool, so we always write **r**ows, **c**olumns. The comma after "Chinstrap" is really important: that's what separates our selection of the rows from the columns. By leaving the second part (after the comma) blank, we're telling R to select *all* the columns.
+
+```{r}
+head(chinstrap2)
+```
+
+We can also subset a single variable. Because one variable is one column, there's no need to tell R about columns at all, so we'll drop that comma. Let's subset `body_mass_g` by `sex`.
+
+```{r}
+table(penguins$sex)
+```
+
+The `sex` variable in this data is either `female` or `male` (note the lowercase names!).
+
+```{r bodyMassMale}
+male_body_mass <- penguins$body_mass_g[penguins$sex == "male"]
+```
+
+Fill in the chunk below to create a new variable for the body mass of female penguins.
+
+```{r bodyMassFemale, error = T}
+female_body_mass <- penguins$body_mass_g[penguins$sex == ""]
+```
+
+## Side-by-Side Boxplots
+
+Recall this boxplot from Lab 2:
+
+```{r bodyMassBoxplot}
+boxplot(penguins$flipper_length_mm,
+        main = "Boxplot of Penguin Flipper Length",
+        ylab = "Flipper Length (mm)")
+```
+
+Sometimes we're interested in comparing two or more groups using "side-by-side" boxplots. We can compare the different species of penguins' flipper lengths in this way, still using the `boxplot` function.
+
+```{r bodyMassBySpecies}
+boxplot(adelie$body_mass_g, 
+        chinstrap$body_mass_g,
+        gentoo$body_mass_g,
+        main = "Boxplots of Penguin Body Mass by Species",
+        ylab = "Body mass (g)",
+        xlab = "Species",
+        names = c("Adelie", "Chinstrap", "Gentoo"))
+```
+
+Make sure you put the `names` inside that `c()` function - we'll talk about that soon.
+
+We could also make boxplots of body mass by sex:
+
+```{r bodyMassSex}
+boxplot(female_body_mass,
+        male_body_mass,
+        main = "Boxplot of Penguin Body Mass by Sex",
+        ylab = "Body mass (g)",
+        xlab = "Sex",
+        names = c("Female", "Male"))
+```
+
+We can add colors to a plot using the `col` argument. Here's that species plot again. Notice that the chunk is renamed bodyMassSpecies\_*colors*; chunk names must be unique for the document to knit.
+
+```{r bodyMassSpecies_colors}
+boxplot(adelie$body_mass_g, 
+        chinstrap$body_mass_g,
+        gentoo$body_mass_g,
+        main = "Boxplots of Penguin Body Mass by Species",
+        ylab = "Body mass (g)",
+        xlab = "Species",
+        names = c("Adelie", "Chinstrap", "Gentoo"),
+        col = c("darkorange1", "mediumorchid2", "darkcyan")
+)
+```
+
+Notice that there are three colors in that list (also inside the `c()` function): one per species. If you provide one color, all the boxes will be that color. If you provide 2, they'll alternate.
+
+You can find a list of colors you can use in R [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf).
+
+## Histograms Revisited
+
+With histograms, it's often helpful to change the number of bins to get a different view of the data. We can sort of control the number of bins using the `breaks` argument.
+
+```{r bodyMassHistBreaks}
+hist(penguins$body_mass_g,
+     main = "Histogram of Penguin Body Mass",
+     xlab = "Body Mass (g)",
+     breaks = 20)
+```
+
+So now we've got a lot more bins than in the original plot. There might not be exactly 20, though. R uses the `breaks` argument as a *suggestion* only -- it'll try to give you what you want, but (1) no promises and (2) it will prefer what it thinks is prettier. Your best strategy here is to play around with the number you give as `breaks` until you get a plot that looks "good". Here's what you're looking for:
+
+```{r histogramOptions, echo = FALSE, fig.height = 4, fig.width = 9, fig.align='center'}
+par(mfrow = c(1, 3))
+hist(penguins$body_mass_g,
+     main = "Histogram of Penguin Body Mass\n(Too few breaks)",
+     xlab = "Body Mass (g)",
+     breaks = 5)
+
+hist(penguins$body_mass_g,
+     main = "Histogram of Penguin Body Mass \n(This is the best one)",
+     xlab = "Body Mass (g)")
+
+hist(penguins$body_mass_g,
+     main = "Histogram of Penguin Body Mass\n(Too many breaks)",
+     xlab = "Body Mass (g)",
+     breaks = 20)
+
+par(mfrow = c(1, 1))
+```
+
+The middle plot (that uses the default number of breaks computed by R) is the best of these three. It gives you a good sense of the distribution of the values of body mass without being too fine or too coarse. This is something you'll get the hang of as you see and make more histograms over the semester!
+
+## Scatterplots
+
+A **scatterplot** is a way to visualize relationships between two numeric variables. One of them is called an *explanatory* variable (denoted $x$), and the other is called the *response* variable (denoted $y$). The data is paired *(x,y)*, then each pair is plotted using an open circle. In terms of our data set `penguins`, each case would be represented by an open circle.
+
+```{r scatterplotExample}
+plot(penguins$flipper_length_mm, penguins$body_mass_g,
+     main = "Scatterplot of Body Mass vs. Flipper Length",
+     xlab = "Flipper Length (mm)",
+     ylab = "Body Mass (mm)")
+```
+
+The `plot()` function, when given two numeric variables, will create a scatterplot. The first argument to `plot()` is on the x axis; the second, on the y axis.
+
+Notice that there might be some clustering happening. Let's color the plot by `species` to see if that might explain what we're seeing.
+
+```{r scatterplotColor}
+plot(penguins$flipper_length_mm, penguins$body_mass_g,
+     main = "Scatterplot of Body Mass vs. Flipper Length",
+     xlab = "Flipper Length (mm)",
+     ylab = "Body Mass (mm)",
+     col = c("red", "blue", "green")[penguins$species])
+```
+
+Notice the `col` argument uses square brackets `[]` -- this is for "selection". We're selecting a color (red, blue, or green) based on the value of `penguins$species`. We know which color goes with which species based on the order of the colors and the order of the levels of `species`:
+
+```{r speciesTable}
+table(penguins$species)
+```
+
+So Adelie penguins are red, chinstraps are blue, and gentoos are green. Let's add a legend for clarity.
+
+```{r scatterplotLegend}
+plot(penguins$flipper_length_mm, penguins$body_mass_g,
+     main = "Scatterplot of Body Mass vs. Flipper Length",
+     xlab = "Flipper Length (mm)",
+     ylab = "Body Mass (mm)",
+     col = c("red", "blue", "green")[penguins$species])
+
+legend("topleft",
+       legend = c("Adelie", "Chinstrap", "Gentoo"),
+       col = c("red", "blue", "green"),
+       pch = 1)
+```
+
+**NOTE:** The information in the legend is *not* tied to the plot by default. You can make a nonsense legend if you want (you don't want this). Make sure your legend matches your plot!
+
+Notice the `pch` argument in `legend`. `pch` stands for `p`lotting `ch`aracter: it's the symbol that R will use for the points on the plot. You just pass `pch` a number corresponding to the point you want. The default is `1`, an open circle.
+
+![](assets/images/pch.png)
+
+Let's change the `pch` argument so that each species has a different color *and* plotting character.
+
+```{r scatterplotLegendPCH}
+plot(penguins$flipper_length_mm, penguins$body_mass_g,
+     main = "Scatterplot of Body Mass vs. Flipper Length",
+     xlab = "Flipper Length (mm)",
+     ylab = "Body Mass (mm)",
+     col = c("red", "blue", "green")[penguins$species],
+     pch = c(0, 1, 2)[penguins$species])
+
+legend("topleft",
+       legend = c("Adelie", "Chinstrap", "Gentoo"),
+       col = c("red", "blue", "green"),
+       pch = c(0, 1, 2))
+```
+
+## Use Color Meaningfully and with Restraint
+
+The primary function of a graphical display is to *convey information*. Everything that goes on your plot needs to have a purpose and must convey information.
+
+**Use color only to convey information.**
+
+In the scatterplot above, we colored the points by penguin species. This is meaningful: it differentiates the points and conveys information by telling us that Gentoo penguins tend to have longer flipper lengths and are heavier than Adelie and Chinstrap penguins. Here's an example of using color in a way that does not convey information:
+
+```{r badColor}
+plot(penguins$flipper_length_mm, penguins$body_mass_g,
+     main = "Scatterplot of Body Mass vs. Flipper Length",
+     xlab = "Flipper Length (mm)",
+     ylab = "Body Mass (mm)",
+     col = c("red", "blue", "green"))
+```
+
+Notice that the `col` argument doesn't involve the `[penguins$species]` selector, so it's just coloring points red, blue, and green based on the order the observations are in the data. This is not meaningful. It might look fun, but it distracts from the information the graph is trying to convey. A viewer will ask what the color means, and you'll have to tell them, "Nothing! But doesn't it look cool??" and that's embarrassing.
+
+### Quick Tips for Color
+
+These are adapted from <https://nbisweden.github.io/Rcourse/files/rules_for_using_color.pdf>
+
+1.  Use color only when needed to serve a particular communication goal.
+
+2.  Use different colors only when they correspond to differences of meaning in the data.
+
+    a.  This means that something like a histogram should be **one color**.
+
+3.  To guarantee that most people who are colorblind can distinguish groups of data that are color coded, avoid using a combination of red and green in the same display.
+
+The document linked above has all sorts of great information on color. You should check it out: understanding just a little bit about color (and graphic design) will take you a long way in your professional life.
+
+<hr />
+
+# Code Cheat Sheet
