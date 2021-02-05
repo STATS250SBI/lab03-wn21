@@ -26,6 +26,8 @@ Depending on your instruction method (synchronous or asynchronous), complete the
 
 **Collaborators:** If applicable, replace this text with the names of anyone you collaborated with on this project.
 
+You can find a list of colors you can use in R [here](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf). You can also directly use RGB colors via the `rgb()` function (see the help for more), or hex codes. If you don't know what those are, stick to the named colors in the linked PDF.
+
 # Lab Assignment
 
 In this assignment, we'll be using a data set we will call `tuition` that contains information about cost of attendance for 1,861 colleges and universities around the United States.
@@ -83,6 +85,7 @@ Make a histogram of the same variable from Question 3, being sure to include a p
 :::{.answer}
 ```{r question4, error = T}
 # Replace this comment with code required for Question 4. (Remember that this text is a comment, so R ignores it; you can delete it if you want.)
+
 ```
 
 Replace this text with your answers to Question 4.
@@ -91,15 +94,20 @@ Replace this text with your answers to Question 4.
 
 ## Question 5
 
-> **5.** Make a side-by-side boxplot of the total cost of attendance for in-state students by type of institution (for profit / public / private). As always, be sure to provide an appropriate title and axis labels. In 1-2 sentences, describe what you see.
+:::{.question}
+Make a side-by-side boxplot of the total cost of attendance for in-state students by type of institution (for profit / public / private). As always, be sure to provide an appropriate title and axis labels. In 1-2 sentences, describe what you see.
+:::
 
-*Answer:*
-
+:::{.answer}
 ```{r question5, error = T}
 # Replace this comment with code required for Question 5. (Remember that this text is a comment, so R ignores it; you can delete it if you want.)
+
 ```
 
-Replace this text with your answers to Question 5.
+Replace this text with your answer to Question 5.
+
+:::
+
 
 ## Question 6
 
@@ -113,13 +121,13 @@ Does higher tuition mean higher living costs? Make a scatterplot of room and boa
 
 ```
 
-Replace this text with your answer to Question 6
+Replace this text with your 1-2 sentence answer to Question 6
 
 :::
 
 ## Question 7
 :::{.question}
-Subset the data to include only schools in Michigan and call the new subset `mi_tuition`. Make a histogram of the variable you chose in Question 3 using this subset of data. What do you notice about this histogram compared to the national histogram in Question 4?
+Subset the data to include only schools in Michigan and call the new subset `mi_tuition`. Using code, verify that your subset contains only Michigan schools.
 
 *Hint:* Remember that computers are dumb, and you need to type things *exactly* as they are in the data.
 :::
@@ -127,67 +135,45 @@ Subset the data to include only schools in Michigan and call the new subset `mi_
 :::{.answer}
 ```{r question7, error = T}
 # Replace this comment with code required for Question 7. (Remember that this text is a comment, so R ignores it; you can delete it if you want.)
-```
 
-Replace this text with your written answer to Question 7.
+```
 :::
 
-## Dive Deeper
+## Question 8 
+:::{.question}
+Make a histogram of the variable you chose in Question 3 using `mi_subset`. What do you notice about this histogram compared to the national histogram in Question 4?
+:::
 
-In the Try It, you played around a little with data about tuition costs. Now, we're going to have you dive a little deeper.
+:::{.answer}
+```{r question8, error = T}
+# Replace this comment with code required for Question 8. (Remember that this text is a comment, so R ignores it; you can delete it if you want.)
 
-> **1.** Review the histograms you created in Try It 4 and Try It 6 (national and Michigan-only in-state total cost of attendance). For each, do you *think* the median falls to the left or right of the mean, or is it approximately equal to the mean? After you've described your thinking, use R to verify your answer. (*It's okay if your initial guesses were wrong. Don't go back and change it based on R!*)
-
-Replace this text with your thinking about means and medians *based only on histograms*
-
-```{r diveDeeper1}
-# Use this code chunk to use R to find the appropriate mean and medians
 ```
 
-Replace this text with your discussion of whether R confirmed your initial thinking.
+Replace this text with your 1-2 sentence written answer to Question 8.
 
-> **2.** In the side-by-side boxplots you made in Try it 5, there's an outlier in the boxplot for public institutions: the College of William and Mary. Give a 1-sentence reason you might keep this outlier in the data. Give a 1-sentence reason to eliminate the outlier. Which of your arguments is more compelling?
+:::
 
-Replace this text with your written answer to the question.
 
-> **3.** Below are two side-by-side boxplots (the code has been written for you and won't show up in your report). Describe the main difference between these two plots and think about why that difference exists.
-
-```{r diveDeeperBoxplots, echo = F, error = T}
-par(mfrow = c(1, 2))
-boxplot(in_state_tuition ~ type, 
-        data = tuition, 
-        xlab = "Type of Institution",
-        ylab = "In-State Tuition Cost",
-        main = "Boxplot of in-state tuition cost \nby institution type")
-boxplot(out_of_state_tuition ~ type, 
-        data = tuition,
-        xlab = "Type of Institution",
-        ylab = "Out-of-State Tuition Cost",
-        main = "Boxplot of out-of-state tuition cost \nby institution type")
-par(mfrow = c(1, 1))
-```
-
-*Write 1-2 sentences about your answer here*
-
-## Wrap-Up and Submission
+# Wrap-Up and Submission
 
 At the top of the document, make sure you've changed the `author` field to your name (in quotes!). If you'd like, change the date as well.
 
 When you've finished the lab, click the **Knit** button one last time.
 
-### Submission instructions
+## Submission instructions
 
-#### If you're using RStudio Cloud
+### If you're using RStudio Cloud
 
 1.  In the Files pane, check the box next to `lab03-report.html`.
 2.  Click More \> Export...
 3.  Click Download and save the file on your computer in a folder you'll remember and be able to find later. You can just call the file `lab03report.html` or whatever else you'd like (as long as you remember what you called it).
 
-#### If you're using RStudio installed on your computer
+### If you're using RStudio installed on your computer
 
 1.  locate the `lab03-report.html` file on your computer. The file will be saved in the location indicated at the top of the files pane.
 
-#### Submission to Canvas
+### Submission to Canvas
 
 1.  Click the "Assignments" panel on the left side of the page. Scroll to find "Lab 3", and open the assignment. Click "Submit Assignment".
 2.  Towards the bottom of the page, you'll be able to choose `lab03report.html` from the folder you saved it in from RStudio Cloud or noted if you're using RStudio Desktop. **You will only be able to upload a .html file -- do not upload any other file type.**
