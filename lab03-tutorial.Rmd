@@ -299,3 +299,35 @@ The document linked above has all sorts of great information on color. You shoul
 <hr />
 
 # Code Cheat Sheet
+
+## `read.csv("filename", stringsAsFactors = TRUE)`
+- `filename` is the name of the file from which data are to be read (IN QUOTES)
+- `stringsAsFactors` should generally be set to `TRUE` (all caps): this determines how text-like data in a CSV file is interpreted by R.
+
+## `subset(data, subset)`
+- `data` is the name of the data.frame you want to make a subset of
+- `subset` is a logical expression indicating rows to keep. Remember to use "logical equals", `==` to test for equality; you can use regular comparison operators as well, like `>` for greater than, `<=` for less than or equal to, etc.
+
+## `boxplot(x, ..., xlab, ylab, main, col)`
+- `x` is the data you want to create a boxplot of
+- `...` is additional data to include in the boxplot
+- `xlab` is the x-axis label
+- `ylab` is the y-axis label
+- `main` is the main title
+- `col` is a *vector* of color names enclosed in the `c()` function; e.g., `col = c("red", "blue", "green")`.
+
+## `hist(x, breaks, xlim, ylim, main, col)`
+- `x` is the variable you want to make a histogram of
+- `breaks` is the approximate number of breaks you want in the histogram (R will sometimes ignore this to make the plot prettier)
+- `xlab` is the x-axis label
+- `ylab` is the y-axis label
+- `main` is the main title
+- `col` is a *vector* of color names enclosed in the `c()` function; e.g., `col = c("red", "blue", "green")`.
+
+## `plot(x, y, xlab, ylab, main, col)`
+- `x` is the variable you want to plot on the x axis
+- `y` is the variable you want to plot on the y axis
+- `xlab` is the x-axis label
+- `ylab` is the y-axis label
+- `main` is the main title
+- `col` is a *vector* of color names enclosed in the `c()` function; e.g., `col = c("red", "blue", "green")`.
