@@ -76,7 +76,7 @@ The first argument of the `subset()` function is the data you want to create a s
 head(chinstrap)
 ```
 
-Fill in the chunk below to create subsets for the other species of penguin.
+**TRY IT!** Fill in the chunk below to create subsets for the other species of penguin.
 
 ```{r speciesSubsets, error = T}
 adelie <- subset(penguins, species == "")
@@ -105,14 +105,9 @@ table(penguins$sex)
 
 The `sex` variable in this data is either `female` or `male` (note the lowercase names!).
 
-```{r bodyMassMale}
+```{r bodyMassSubsets}
 male_body_mass <- penguins$body_mass_g[penguins$sex == "male"]
-```
-
-Fill in the chunk below to create a new variable for the body mass of female penguins.
-
-```{r bodyMassFemale, error = T}
-female_body_mass <- penguins$body_mass_g[penguins$sex == ""]
+female_body_mass <- penguins$body_mass_g[penguins$sex == "female"]
 ```
 
 ## Side-by-Side Boxplots
@@ -127,7 +122,8 @@ boxplot(penguins$flipper_length_mm,
 
 Sometimes we're interested in comparing two or more groups using "side-by-side" boxplots. We can compare the different species of penguins' flipper lengths in this way, still using the `boxplot` function.
 
-```{r bodyMassBySpecies}
+```{r bodyMassBySpecies, error = T}
+# This chunk will return an error if you did not complete the TRY IT! exercise on line 79.
 boxplot(adelie$body_mass_g, 
         chinstrap$body_mass_g,
         gentoo$body_mass_g,
@@ -152,7 +148,8 @@ boxplot(female_body_mass,
 
 We can add colors to a plot using the `col` argument. Here's that species plot again. Notice that the chunk is renamed bodyMassSpecies\_*colors*; chunk names must be unique for the document to knit.
 
-```{r bodyMassSpecies_colors}
+```{r bodyMassSpecies_colors, error = T}
+# This chunk will return an error if you did not complete the TRY IT! exercise on line 79.
 boxplot(adelie$body_mass_g, 
         chinstrap$body_mass_g,
         gentoo$body_mass_g,
