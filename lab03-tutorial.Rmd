@@ -331,4 +331,13 @@ The document linked above has all sorts of great information on color. You shoul
 - `xlab` is the x-axis label
 - `ylab` is the y-axis label
 - `main` is the main title
-- `col` is a *vector* of color names enclosed in the `c()` function; e.g., `col = c("red", "blue", "green")`.
+- `col` is a *vector* of color names enclosed in the `c()` function; e.g., `col = c("red", "blue", "green")`
+- `pch` is a *vector* of **p**lotting **ch**aracters, indicated by numbers 0-25.
+![](assets/images/pch.png)
+
+## `legend(position, legend, col, pch, ...)`
+- `position` is a position for the legend, in quotes. One of `"bottomright"`, `"bottom"`, `"bottomleft"`, `"left"`, `"topleft"`, `"top"`, `"topright"`, `"right"` or `"center"`.
+- `legend` is a *vector* of labels to appear in the legend, enclosed inside `c()`
+- `col` is a *vector* of color names enclosed in the `c()` function; e.g., `col = c("red", "blue", "green")`
+- `pch` is a *vector* of **p**lotting **ch**aracters, indicated by numbers 0-25.
+
