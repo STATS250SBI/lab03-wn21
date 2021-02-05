@@ -18,12 +18,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Statistical Learning Objectives
 
-1.  Practice interpreting histograms and boxplots
-2.  Revisit the five-number summary of a variable
+1. Practice interpreting histograms and boxplots
+2. Revisit the five-number summary of a variable
+3. Think about multivariate relationships via scatterplots
 
 ## R Learning Objectives
 
-1.  Learn how to subset data in R
+1. Learn how to subset data in R
+1. Learn how to make side-by-side boxplots
+1. Learn how to make scatterplots
+1. Learn about color in plots.
 
 ## Functions covered in this lab
 
