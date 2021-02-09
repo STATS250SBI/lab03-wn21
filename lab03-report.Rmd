@@ -141,7 +141,7 @@ Subset the data to include only schools in Michigan and call the new subset `mi_
 
 ## Question 8 
 :::{.question}
-Make a histogram of the variable you chose in Question 3 using `mi_subset`. What do you notice about this histogram compared to the national histogram in Question 4?
+Make a histogram of the variable you chose in Question 3 using `mi_tuition`. What do you notice about this histogram compared to the national histogram in Question 4?
 :::
 
 :::{.answer}
